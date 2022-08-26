@@ -3,6 +3,21 @@
 #include <stack>
 #include <cstring>
 #include <stdio.h> // legacy c lib because me stupid
+#ifdef _WIN32
+ #include <conio.h>
+#else
+ #include <ncurses.h>
+ int kbhit() {
+     int ch = getch();
+     if (ch != ERR) {
+         ungetch(ch);
+         return 1;
+     } else {
+         return 0;
+     }
+ }
+#endif
+
 
 #define var_mem 24576 // 24k var and array mem
 #define word_mem 2048 // word mem 16k
@@ -49,7 +64,6 @@ int isNumber(std::string text) {
     }
     return 1;
 }
-
 
 int custom_word = 0;
 int word_def_length = 0;
@@ -416,10 +430,23 @@ int op(std::string win) {
     if (win=="cells") { // it does nothing because me stupid
         return 0;
     }
+
+    // random number generation
     if (win=="rand") {
         int op1 = stack.top();
         stack.pop();
 	stack.push(rand()%(op1+1));	
+	return 0;
+    }
+
+    // key input
+    if (win=="key?") {
+	stack.push(kbhit()?-1:0);
+	return 0;
+    }
+    if (win=="key") {
+	while (!kbhit());
+	stack.push(getch());
 	return 0;
     }
     return 1;
