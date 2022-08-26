@@ -205,7 +205,7 @@ int op(std::string win) {
             print_str += remq(strings[pc])+" ";
             pc++;
         }
-        print_str += remq(strings[pc])+" ";
+        print_str += remq(strings[pc]);
         std::cout<<print_str;
         return 0;
     }
