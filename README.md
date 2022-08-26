@@ -1,6 +1,11 @@
 # aartforth
 A turing-complete forth interpreter in C++
 
+## features
+operators, bitwise operations, string and number output, variables, arrays, custom words and do loops.
+### todo:
+keyboard input
+
 ## usage
 to compile aartforth:
 ```
