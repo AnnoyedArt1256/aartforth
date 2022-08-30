@@ -49,6 +49,7 @@ variable temp
 variable a
 16 cells allot
 255 a 6 cells + !
+variable temp2
 
 : j 
  a y @ 1 + cells + @ 
@@ -69,14 +70,18 @@ variable a
 
 : rb if 42 emit else 95 emit then ;
 : r
- a 5 cells + @ 30 >
- if
-   5 0
-   do
-     a 6 i - 1 - cells + @
-     a 6 i - cells + !
-   loop
- then 
+ 6 0
+ do
+  a i cells + @ 30 >
+  if
+    i temp2 !
+    temp2 @ 0
+    do
+      a temp2 @ i - 1 - cells + @
+      a temp2 @ i - cells + !
+    loop
+  then 
+ loop
  27 emit ." [1;1H"
  6 0
  do
