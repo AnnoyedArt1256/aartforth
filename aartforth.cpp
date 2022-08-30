@@ -3,6 +3,9 @@
 #include <stack>
 #include <cstring>
 #include <stdio.h> // legacy c lib because me stupid
+#include <unistd.h>
+#include <time.h>
+
 #ifdef _WIN32
  #include <conio.h>
 #else
@@ -449,6 +452,15 @@ int op(std::string win) {
 	stack.push(getch());
 	return 0;
     }
+
+    // sleep function
+    if (win=="sleep") {
+        int op1 = stack.top();
+        stack.pop();
+	usleep(op1*1000);	
+	return 0;
+    }
+    
     return 1;
 }
 
@@ -474,6 +486,7 @@ int run_forth(std::string input) {
 }
 
 int main() {
+    srand(time(NULL));
     std::string prog;
     std::cout<<"AArtForth C version by AArt1256 made in 2022!";
     while (1) {
